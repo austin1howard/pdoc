@@ -233,7 +233,8 @@ _tpl_lookup = TemplateLookup(directories=template_path,
 
 
 def html(module_name, docfilter=None, allsubmodules=False,
-         external_links=False, link_prefix='', source=True):
+         external_links=False, link_prefix='', source=True,
+         newline_to_br=False):
     """
     Returns the documentation for the module `module_name` in HTML
     format. The module must be importable.
@@ -262,7 +263,8 @@ def html(module_name, docfilter=None, allsubmodules=False,
                  docfilter=docfilter,
                  allsubmodules=allsubmodules)
     return mod.html(external_links=external_links,
-                    link_prefix=link_prefix, source=source)
+                    link_prefix=link_prefix, source=source,
+                    newline_to_br=newline_to_br)
 
 
 def text(module_name, docfilter=None, allsubmodules=False):
@@ -651,7 +653,7 @@ class Module (Doc):
         return text
 
     def html(self, external_links=False, link_prefix='',
-             source=True, **kwargs):
+             source=True, newline_to_br=False, **kwargs):
         """
         Returns the documentation for this module as
         self-contained HTML.
@@ -673,6 +675,7 @@ class Module (Doc):
                      external_links=external_links,
                      link_prefix=link_prefix,
                      show_source_code=source,
+                     newline_to_br=newline_to_br,
                      **kwargs)
         return t.strip()
 

@@ -44,6 +44,9 @@ aa('--html-dir', type=str, default='.',
 aa('--html-no-source', action='store_true',
    help='When set, source code will not be viewable in the generated HTML. '
         'This can speed up the time required to document large modules.')
+aa('--html-newline-br', action='store_true',
+    help='Creates linebreaks in html for newlines in the code, in the '
+    'style of StackOverflow.')
 aa('--overwrite', action='store_true',
    help='Overwrites any existing HTML files instead of producing an error.')
 aa('--all-submodules', action='store_true',
@@ -324,7 +327,8 @@ def html_out(m):
             out = m.html(external_links=args.external_links,
                          link_prefix=args.link_prefix,
                          http_server=args.http_html,
-                         source=not args.html_no_source)
+                         source=not args.html_no_source,
+                         newline_to_br=args.html_newline_br)
             print(out, file=w)
     except Exception as e:
         try:
@@ -356,6 +360,8 @@ def process_html_out(impath):
         cmd.append('--only-pypath')
     if args.html_no_source:
         cmd.append('--html-no-source')
+    if args.html_newline_br:
+        cmd.append('--html-newline-br')
     cmd.append(impath)
 
     # Can we make a good faith attempt to support 2.6?

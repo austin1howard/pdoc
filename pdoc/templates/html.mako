@@ -64,8 +64,10 @@
             s, _ = re.subn('`[^`]+`', linkify, s)
       
       extensions = []
+      if newline_to_br:
+          extensions.append('nl2br')
       if use_pygments:
-          extensions = ['codehilite(linenums=False)']
+          extensions.append('codehilite(linenums=False)')
       s = markdown.markdown(s.strip(), extensions=extensions)
       return s
 
